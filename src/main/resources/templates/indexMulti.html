@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Carrito de Compras Aligner 3DS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+
+
+	<div class="container p-3 my-3 border">
+
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+			<!-- 			<a class="navbar-brand" href="#">Logo</a> -->
+			<img th:src="@{/images/luffy.png}" />
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link"    th:href="@{/index}"   >Home</a></li>
+			</ul>
+		</nav>
+
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-3"></div>
+					<div class="col-6">
+						<h2>
+							<span th:text="'Hola, ' + ${message}"></span>
+						</h2>
+					</div>
+					<div class="col-3"></div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<div class="form-group">
+			<label for="sel1">Entorno :</label> <select class="form-control"
+				id="enviroment">
+				<!--<option value="http://localhost:8080/tds-alignet-requestor-rest/api/v2/">LOCAL</option>-->
+				 <option value="http://192.168.1.7:8080/tds-alignet-requestor-rest/api/v2/">LOCAL</option>
+				<option value="https://api.dev.alignet.io/requestor/">DEV</option>
+				<option value="https://uatalgreq.3dsecurekey.cloud/requestor/">UAT</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="sel1">KeySecurity :</label> <input type="text"
+				class="form-control" value="4KP375hzfEYrH2mGWEjGQ4LP4ez4mAVC"
+				id="key">
+		</div>
+		<div class="form-group">
+			<label for="sel1">CodigoComercio :</label>
+			<!--<input type="text" class="form-control" value="597026007992" id="accMerchantId"> -->
+			<!--<input type="text" class="form-control" value="9876543210001" id="accMerchantId"> -->
+			<!-- <input type="text" class="form-control" value="597026007992" id="accMerchantId"/> -->
+			<input type="text" class="form-control" value="597026007992"
+				id="accMerchantId" />
+		</div>
+		<div class="form-group">
+			<label for="sel1">Numero Tarjeta :</label>
+
+			<!-- <input type="text" class="form-control" value="5449610000000124" id="acctNumber"> -->
+			<input type="text" class="form-control" value="374641000000009"
+				id="acctNumber">
+		</div>
+		<div class="form-group custom-control custom-checkbox mb-3">
+			<input id="transbank" type="checkbox" value="transbank" checked /> <label>Transbank</label>
+			<!-- 			<input type="checkbox" class="custom-control-input" id="transbank" -->
+			<!-- 				name="example1"  > <label class="custom-control-label"	for="customCheck">Transbank</label> -->
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary" onclick="versioning()">COMENZAR
+				VERSIONING</button>
+		</div>
+		<div class="form-group">
+			<div class="row ">
+				<div class="col-sm border border-dark rounded">
+
+					<span class="label label-default">Envio de Mensaje
+						Versioning</span>
+					<pre id="versioning"></pre>
+				</div>
+				<div class="col-sm border border-dark rounded">
+					<div class="form-group">
+
+						<span class="label label-default">Respuesta del Versioning</span>
+
+					</div>
+
+					<div class="form-group">
+						<p id="resultadoVersioning"></p>
+					</div>
+
+
+					<pre id="mensajeVersioning"></pre>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="form-group">
+			<h3>
+				<span class="label label-default">Envio de Mensaje PARQ : </span>
+			</h3>
+		</div>
+		<div class="form-group">
+			<textarea id="parks" class="form-control" rows="30" cols="140"></textarea>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary" onclick="authentication()">COMENZAR
+				AUTHENTICATION</button>
+		</div>
+
+		<div class="form-group">
+			<h3>
+				<span class="label label-default">Respuesta del Primer
+					Mensaje PARS</span>
+			</h3>
+		</div>
+
+		<div class="form-group">
+			<p id="resultado"></p>
+		</div>
+
+		<div class="col-sm border border-dark rounded">
+			<pre id="primerMensaje"></pre>
+		</div>
+		<br>
+		<div class="form-group">
+			<h3>
+				<span class="label label-warning">Segundo Mensaje Si Existe
+					Challenge (transStatus = C) </span>
+			</h3>
+		</div>
+		<div class="form-group">
+			<h4>
+				<span class="label label-default">Envio de Mensaje PGCQ </span>
+			</h4>
+		</div>
+		<div class="form-group">
+			<textarea id="segundoMensaje" class="form-control" rows="10"
+				cols="140"></textarea>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary" onclick="pgcq()">LANZAR
+				CHALLENGE</button>
+		</div>
+
+		<br />
+		<h2>
+			<span class="label label-default">Respuesta del Segundo
+				Mensaje </span>
+		</h2>
+		<br />
+		<iframe id="acsFrame" style="width: 100%; height: 300px;"> </iframe>
+
+
+
+	</div>
+
+
+	<script type="text/javascript" src="js/ajax_functions.js"></script>
+</body>
+</html>
