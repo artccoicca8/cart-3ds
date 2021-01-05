@@ -10,7 +10,7 @@ public class VersioningRequestBean implements Serializable {
 	private static final long serialVersionUID = -1194578714765618726L;
 	private String acquirerMerchantID;
 	private String acctNumber;
-	private String transbank;
+	private Boolean transbank;
 	private String urlEnviroment;
 	private String method;
 	private String body;
@@ -37,11 +37,11 @@ public class VersioningRequestBean implements Serializable {
 		this.acctNumber = acctNumber;
 	}
 
-	public String isTransbank() {
+	public Boolean isTransbank() {
 		return transbank;
 	}
 
-	public void setTransbank(String transbank) {
+	public void setTransbank(Boolean transbank) {
 		this.transbank = transbank;
 	}
 
@@ -94,9 +94,7 @@ public class VersioningRequestBean implements Serializable {
 		this.body = body;
 	}
 
-	public String getTransbank() {
-		return transbank;
-	}
+	 
 
 	public String getParks() {
 		return parks;

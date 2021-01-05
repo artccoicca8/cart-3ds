@@ -39,17 +39,24 @@ public class CartController {
 	public ResponseEntity<?> getVersioningViaAjax(@Valid @RequestBody VersioningRequestBean versioningRequestBean) {
 
 		String rq = versioningRequestBean.toString();
-		String resultVersioning = "" ; 
+		String resultVersioning = "";
 		logger.info("versioningRequestBean : {} ", rq);
 
 		try {
-			resultVersioning = service.postVersioning(versioningRequestBean);
-//			service.postDS();
+			if (Boolean.TRUE.equals(versioningRequestBean.isTransbank())) {
+				resultVersioning = service.postVersioning(versioningRequestBean);
+			} else {
+				resultVersioning = service.getVersioning(versioningRequestBean);
+			}
+
+		//	service.postDS();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ResponseEntity.ok(resultVersioning);
 
+		// 9926486168
+		// 377607000000000  
 	}
 
 	@PostMapping("/api/authentication")
@@ -67,8 +74,8 @@ public class CartController {
 		requestBean.setUrlEnviroment(headers.get("urlenviroment"));
 		requestBean.setThreedsServerTransId(headers.get("threedsservertransid"));
 
-		logger.info("resq : {} ", bodyRequestBean);
-		logger.info("resq : {} ", requestBean);
+	//	logger.info("resq : {} ", bodyRequestBean);
+	//	logger.info("resq : {} ", requestBean);
 
 		String resultAutentication = service.postAuthentication(requestBean, bodyRequestBean);
 
@@ -112,21 +119,24 @@ public class CartController {
 
 	@PostMapping(path = "/index", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
 			MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_XHTML_XML_VALUE })
-	public String result(
-			@RequestParam(name = "transStatus", required = false) String transStatus,
+	public String result(@RequestParam(name = "transStatus", required = false) String transStatus,
 			@RequestParam(name = "threeDSServerTransID", required = false) String threeDSServerTransID,
 			@RequestParam(name = "acsTransID", required = false) String acsTransID,
 			@RequestParam(name = "eci", required = false) String eci,
-			@RequestParam(name = "vci", required = false) String vci, Model model) {
+			@RequestParam(name = "vci", required = false) String vci,
+			@RequestParam(name = "authenticationValue", required = false) String authenticationValue,
+			Model model) {
 		logger.info("challengeCompletionInd  ===  {} ", transStatus);
 		logger.info("threeDSServerTransID ===  {} ", threeDSServerTransID);
 		logger.info("acsTransID ===  {} ", acsTransID);
-
+		logger.info("authenticationValue ===  {} ", authenticationValue);
+//authenticationValue
 		model.addAttribute("threeDSServerTransID", threeDSServerTransID);
 		model.addAttribute("acsTransID", acsTransID);
 		model.addAttribute("transStatus", transStatus);
 		model.addAttribute("eci", eci);
 		model.addAttribute("vci", vci);
+		model.addAttribute("authenticationValue", authenticationValue);
 
 		return "result";
 	}

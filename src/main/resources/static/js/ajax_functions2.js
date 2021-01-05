@@ -8,17 +8,19 @@
 	    	   $("#acctNumber").val("374641000000009");
 	    	   $("#accMerchantId").val("9876543210001");
      	   }else if (cboText == "Prod"){
-				$("#key").val("09p0tV6I0Zu4ay2D.C9b5Qa3fsizTvkkV3UZdLCifjqjKHIgAzqW6vULFH0D83BNHpA7zW7xVu1xAB857");
+//				$("#key").val("09p0tV6I0Zu4ay2D.C9b5Qa3fsizTvkkV3UZdLCifjqjKHIgAzqW6vULFH0D83BNHpA7zW7xVu1xAB857");
+				$("#key").val("KpukdUfqnHr6MemWj6s7fWTPDzwGEa8x");
     	  		$("#accBin").val("230358");
 				$("#accMerchantId").val("12345678912003");
 			}else {
-    	  		$("#acctNumber").val("4110760000000008");
-    	  		$("#accMerchantId").val("M00215");
+    	  		$("#acctNumber").val("5457210001000019");
+    	  		$("#accMerchantId").val("M00216");
     	  
       }
 	     
 	});
 	
+	//HB53b4gCXVYpEKJj.x5R9Xhua9mtGBiQlWzwU8eALTYoG2CUI6BbvEMIhEXzucwumGQRpnH9wk4qQrXf2
 
       function versioning(){
     	  
@@ -46,10 +48,11 @@
       
       
       console.log("key " + keyText) ;
+      console.log("transbank " + transbank) ;
     
       
       
-      if(transbank){
+//      if(transbank){
 		 // POST
         var versioningDataJson = {};
         versioningDataJson["acctNumber"] = acctNumber;
@@ -58,16 +61,17 @@
         versioningDataJson["urlEnviroment"] = urlEnviroment;
         versioningDataJson["keyText"] = keyText;
         versioningDataJson["method"] = "POST";
+
         
         
         versioningDataJsonParse = JSON.stringify(versioningDataJson);
         console.log("Antes de enviar el versioningDataJson : " +versioningDataJsonParse );
         inputVersioning = JSON.stringify(versioningDataJson, undefined, 2);
-      } else { // GET
-       
-        urlEnviroment = urlEnviroment + "/" + accMerchantId + "/" + acctNumber;
-        inputVersioning = urlEnviroment;
-      }
+//      } else { // GET
+//       
+//        urlEnviroment = urlEnviroment + "/" + accMerchantId + "/" + acctNumber;
+//        inputVersioning = urlEnviroment;
+//      }
 
       console.log("urlEnviroment " + urlEnviroment) ;
       document.getElementById("versioning").innerHTML = inputVersioning;
@@ -109,9 +113,9 @@
           }
       }
 
-      if(transbank){
-        paramsAJAX["data"] = versioningDataJsonParse;
-      }
+       
+      paramsAJAX["data"] = versioningDataJsonParse;
+     
 
       $.ajax(paramsAJAX);
 
@@ -129,6 +133,8 @@
           results["ALG-API-VERSION"] = "1172945160";
         } else {
           results["Authorization"] = keyText;
+  		  results["key"] = keyText;
+          results["ALG-API-VERSION"] = "1172945160";
         }
 
         return results;
@@ -281,7 +287,10 @@
             var accMerchantId = $("#accMerchantId").val();
             var acctNumber = $("#acctNumber").val();
 			var accBIN = $("#accBIN").val();
-
+			var numOrder =  Math.floor( Math.random()* (9999999 - 999999) + 9999999 ); 
+			
+			console.log("el numero de la orden es : " +numOrder);
+			
             pgcqData["messageType"] = "pArq";
             pgcqData["acctNumber"] = acctNumber;// "5449610000000004";
             pgcqData["cardExpiryDate"] = "2212";
@@ -293,6 +302,8 @@
             pgcqData["acquirerBIN"] = accBIN;
             pgcqData["acquirerMerchantID"] = accMerchantId;// "597026007992";
             pgcqData["cardholderName"] = "Challenge One";
+			
+			pgcqData["purchaseNumber"] = "100010";
             pgcqData["purchaseAmount"] = "100";
             pgcqData["purchaseCurrency"] = "840";
             pgcqData["purchaseExponent"] = "2";
